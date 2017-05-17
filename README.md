@@ -40,15 +40,15 @@ and AR with the gigabyt bandwith future coming soon (TM).
     + Depth Mapping
        + Basically what you would need to make disparity maps from both 
 camera outputs
-  + Scripts
-     + All of the scripts for automation. Important to check these before 
+    + Scripts
+       + All of the scripts for automation. Important to check these before 
 running them to make sure that the directories are correct.  
  + Raspberry Pi 
     + socket-testing
-      + This is all the stuff that will be constantly running on the server
+       + This is all the stuff that will be constantly running on the server
 These functions are going to be what lets the pi take commands and execute
 them accordingly. 
-  + This directory is basically the stuff that goes in the ~/ directory 
+    + This directory is basically the stuff that goes in the ~/ directory 
 of the pi. These are all associated with taking images and sending them 
 over since all of the image processing should be done on the host machine
 for time reasons. 
