@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Remote Stereo Imaging README
 
 This repository is for the raspberry pi stereo imaging project. 
@@ -55,3 +56,25 @@ for time reasons.
 
 
 
+=======
+# Light Fields
+### A small project by Frank Calas
+---
+The purpose of this project is to explore the application of light fields and
+see if one day light fields will drive the demand for higher bandwidths. 
+
+
+
+## Content Disclaimer
+
+This repo has a bunch of fragmented code. The purpose is for general learning
+and therefore has no logical organization. There should be README's in 
+specific subdirectories that explain their purpose and usage. 
+
+## Goals 
+
+The ultimate goal of this project will be to have a functional program that can 
+use the raspberry Pi to take images (in a stereoscopic system) and map faces in 
+3D. Then using this data it should be able to do basic transforms so that the 
+face is seemingly always orthogonally  (facing) the camera's center.
+>>>>>>> 55ae3dfd8be9b75923fc5ae9ff85b56de6bf0694
