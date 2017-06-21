@@ -58,7 +58,7 @@ def calibrateCamera(DIR):
     h, w = 0, 0
     img_names_undistort = []
     for fn in img_names:
-        print('processing %s... ' % fn, end='')
+        print('processing %s... ' % fn)#, end='')
         img = cv2.imread(fn, 0)
         if img is None:
             print("Failed to load", fn)
