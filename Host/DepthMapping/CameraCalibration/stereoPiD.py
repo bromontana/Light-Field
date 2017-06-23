@@ -48,11 +48,11 @@ def calibrateCamera(DIR):
 
     obj_points = []
     img_points = []
+    imageD = []
 
     h, w = 0, 0
     img_names_undistort = []
     for fn in img_names:
-
         print('processing %s... ' % fn, end='')
         img = cv2.imread(DIR+fn, 0)
         if img is None:
@@ -62,18 +62,12 @@ def calibrateCamera(DIR):
         h, w = img.shape[:2]
         found, corners = cv2.findChessboardCorners(img, pattern_size)
         if found:
+            imageD.append(fn.rsplit('/')[len(fn.split('/'))-1])
             term = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_COUNT, 30, 0.1)
             cv2.cornerSubPix(img, corners, (5, 5), (-1, -1), term)
 
         if debug_dir:
             vis = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
-            cv2.drawChessboardCorners(vis, pattern_size, corners, found)
-            path, name, ext = splitfn(fn)
-            outfile = debug_dir + name + '_chess.png'
-
-            cv2.imwrite(outfile, vis)
-            if found:
-                img_names_undistort.append(outfile)
 
         if not found:
             print('chessboard not found')
@@ -91,7 +85,7 @@ def calibrateCamera(DIR):
 
 
     cv2.destroyAllWindows()
-    return camera_matrix, dist_coefs, (w,h), img_points, obj_points, rvecs, tvecs
+    return (camera_matrix, dist_coefs, (w,h), img_points, obj_points, rvecs, tvecs), imageD
 
 
 
@@ -99,7 +93,7 @@ def calibrateCamera(DIR):
 def dispair(left, right, min_disp=16, num_disp=48):
     #imgR = cv2.imread('friday_delet/Yellow/image25.jpg', 0)
     imgL = cv2.imread(left,0)
-    #imgR = cv2.imread('friday_delet/Green/image25.jpg', 0) 
+    #imgR = cv2.imread('friday_delet/Green/image25.jpg', 0)
     imgR = cv2.imread(right,0)
 
     window_size=3
@@ -121,6 +115,40 @@ def dispair(left, right, min_disp=16, num_disp=48):
     # plt.show()
     return disparity
 
+# def commonWorkingImages(dict1, dict2):
+#
+#     if dict1 > dict2:
+#         bigger_dic = dict1
+#     else:
+#         bigger_dic = dict2
+#
+#     equal_dics = []
+#     for image in iter(bigger_dic):
+#         if dict1[image] and  dict2[image] == True:
+#             print(image)
+#             equal_dics.append(image)
+#     # print(image + "\t\t" + str(gDic[image] )+ "\t | \t" + str(yDic[image]))
+#     return equal_dics
+
+def stereoDiffPop(leftMat, rightMat, leftImageD, rightImageD):
+# Compare the lists and
+    if len(leftImageD) != len(rightImageD):
+        for item in leftImageD:
+            if item in rightImageD:
+                continue
+            else:
+                # remove extra item from img_points and then obj_points
+                del(leftMat[3][leftImageD.index(item)])
+                del(leftMat[4][leftImageD.index(item)])
+                leftImageD.remove(item)
+        for item in rightImageD:
+            if item in leftImageD:
+                continue
+            else:
+                # remove extra item from img_points and then obj_points
+                del(rightMat[3][rightImageD.index(item)])
+                del(rightMat[4][rightImageD.index(item)])
+                rightImageD.remove(item)
 
 def cropDisparity(left, right, disp):
     # get matrix from left img
@@ -140,7 +168,7 @@ def cropDisparity(left, right, disp):
 
 def calib3D(greenCalibTuple, yellowCalibTuple):
 
-    # Green Calibration 
+    # Green Calibration
     gmatrix, gdist_coeff, g_imgS, gobj, gimg, grvec, gtvec = greenCalibTuple
 
     ymatrix, ydist_coeff, y_imgS, yobj, yimg, yrvec, ytvec = yellowCalibTuple
@@ -155,10 +183,10 @@ def calib3D(greenCalibTuple, yellowCalibTuple):
     yPmat = np.zeros(shape=(3,4))
     Q = np.zeros(shape=(4,4))
 
-    #stereoCalibrate to prepare the program to use the stereovision functions 
+    #stereoCalibrate to prepare the program to use the stereovision functions
     retval, ymatrix, ydist_coeff, gmatrix, gdist_coeff, RotationMatrix, TranslationMatrix, EssentialMatrix, FundMatrix =  cv2.stereoCalibrate(gimg, yobj, gobj, ymatrix, ydist_coeff, gmatrix, gdist_coeff, g_imgS, RotationMatrix, TranslationMatrix, EssentialMatrix, FundMatrix)
 
     #stereoRectify for finding the physical (relative) position of cameras
     recTransformLeft, recTransformRight, projectionMatLeft, projectionMatRight, Q, ROIleft, ROIright = cv2.stereoRectify (ymatrix, ydist_coeff, gmatrix, gdist_coeff, g_imgS, RotationMatrix, TranslationMatrix, yRmat, gRmat, yPmat, gPmat, Q)
 
-    return Q 
+    return Q
