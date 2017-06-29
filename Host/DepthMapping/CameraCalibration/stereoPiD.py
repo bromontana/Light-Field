@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+    #!/usr/bin/env python
 
 from __future__ import print_function
 import numpy as np
@@ -54,9 +54,9 @@ def calibrateCamera(DIR):
     img_names_undistort = []
     for fn in img_names:
         print('processing %s... ' % fn, end='')
-        img = cv2.imread(DIR+fn, 0)
+        img = cv2.imread(fn, 0)
         if img is None:
-            print("Failed to load", fn)
+            print("Failed to load  ", fn)
             continue
 
         h, w = img.shape[:2]
