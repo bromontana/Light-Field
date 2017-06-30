@@ -23,9 +23,9 @@ for i in range (0,31):
         os.system('echo "0"')
 	
 	if i < 10:
-	    imagecap = camera.capture("imgs/image0"+str(i)+".jpg")
+	    imagecap = camera.capture("~/imgs/image0"+str(i)+".jpg")
 	else:
-	    imagecap = camera.capture("imgs/image"+str(i)+".jpg")
+	    imagecap = camera.capture("~/imgs/image"+str(i)+".jpg")
 
 	os.system('echo "**Click**"')
 
