@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Remote Stereo Imaging README
 
 This repository is for the raspberry pi stereo imaging project. 
@@ -11,13 +10,13 @@ So far there are a couple features working:
  + Images can be analyzed to look for the checkerboard for calibration 
  + Depth maps can be built
  + Libraries have been started to make file transfer and remote imaging 
-more accessable
+more accessible
 
-If anything looks aweful and out of place please leave an issue. <3
+If anything looks awful and out of place please leave an issue. <3
 
 ## Goals
 
-This is starting at the time when I have aleady made progress up to 
+This is starting at the time when I have already made progress up to 
 the 4th bullet noted above. 
 
  + Make python libraries that enable easy image capture and transfer 
@@ -27,13 +26,13 @@ new ones.
  + Make program that will continually update disparity maps in real 
 time when called upon. 
 
-## Summmary
+## Summary
 
 The purpose of this program is to (eventually) make better conference 
 calls or something to that effect. As the quality of this prototype 
-improves it will provide bandwith benchmarks. We will be able to predict 
-bandwith requirements as video conferencing moves into the realm of VR 
-and AR with the gigabyt bandwith future coming soon (TM). 
+improves it will provide bandwidth benchmarks. We will be able to predict 
+bandwidth requirements as video conferencing moves into the realm of VR 
+and AR with the gigabyte bandwidth future coming soon (TM). 
 
 ## Contents 
 
@@ -56,7 +55,7 @@ for time reasons.
 
 
 
-=======
+======= Old version that hasn't been removed for no real reason =============
 # Light Fields
 ### A small project by Frank Calas
 ---
@@ -77,4 +76,3 @@ The ultimate goal of this project will be to have a functional program that can
 use the raspberry Pi to take images (in a stereoscopic system) and map faces in 
 3D. Then using this data it should be able to do basic transforms so that the 
 face is seemingly always orthogonally  (facing) the camera's center.
->>>>>>> 55ae3dfd8be9b75923fc5ae9ff85b56de6bf0694
