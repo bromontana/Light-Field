@@ -149,6 +149,8 @@ def stereoDiffPop(leftMat, rightMat, leftImageD, rightImageD):
                 del(rightMat[3][rightImageD.index(item)])
                 del(rightMat[4][rightImageD.index(item)])
                 rightImageD.remove(item)
+        print(len(rightImageD))
+        print(len(leftImageD))
 
 def cropDisparity(left, right, disp):
     # get matrix from left img

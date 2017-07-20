@@ -41,7 +41,7 @@ for (x,y,w,h) in faces:
 ## cv2.imshow('face', cropped_face)                      ##
 ## cv2.waitKey(0)                                        ##
 ##                                                       ##
-disparity  =  stereoPiD.dispair(left_file, right_file) ##
+disparity  =  stereoPiD.dispair(left_file, right_file, min_disp=(16*5), num_disp=(128)) ##
 ##                                                       ##
 ##cv2.imshow('img disparity',disparity)                  ##
 ##cv2.waitKey(0)                                         ##
@@ -76,7 +76,7 @@ fig = plt.figure()
 x, y, z = [], [], []
 temp = 0
 for vert in _3Dobject:
-  for horiz in vert[::40]:
+  for horiz in vert[::15]:
     temp += 1
 #    for not filtering out max points
 #
