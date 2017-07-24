@@ -9,10 +9,12 @@ So far there are a couple features working:
  + Images can be taken remotely from each Pi
  + Images can be analyzed to look for the checkerboard for calibration 
  + Depth maps can be built
- + Libraries have been started to make file transfer and remote imaging 
-more accessible
+ + Libraries have been started to make file transfer and remote imaging more accessible
+ + separated configuration code from production for efficiency (finally)
 
 If anything looks awful and out of place please leave an issue. <3
+
+Also current work is being done in FaceIsolation
 
 ## Goals
 
@@ -35,6 +37,7 @@ bandwidth requirements as video conferencing moves into the realm of VR
 and AR with the gigabyte bandwidth future coming soon (TM). 
 
 ## Contents 
+__**THIS MAY NOT BE ACCURATE TO DATE**__
 
  + Host
     + Depth Mapping
@@ -54,25 +57,9 @@ over since all of the image processing should be done on the host machine
 for time reasons. 
 
 
-
-======= Old version that hasn't been removed for no real reason =============
-# Light Fields
-### A small project by Frank Calas
----
-The purpose of this project is to explore the application of light fields and
-see if one day light fields will drive the demand for higher bandwidths. 
-
-
-
 ## Content Disclaimer
 
 This repo has a bunch of fragmented code. The purpose is for general learning
 and therefore has no logical organization. There should be README's in 
-specific subdirectories that explain their purpose and usage. 
-
-## Goals 
-
-The ultimate goal of this project will be to have a functional program that can 
-use the raspberry Pi to take images (in a stereoscopic system) and map faces in 
-3D. Then using this data it should be able to do basic transforms so that the 
-face is seemingly always orthogonally  (facing) the camera's center.
+specific subdirectories that explain their purpose, however I have fallen behind 
+on them and they will be updated soon. 
