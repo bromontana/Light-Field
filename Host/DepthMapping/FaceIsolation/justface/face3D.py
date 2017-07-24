@@ -41,7 +41,7 @@ for (x,y,w,h) in faces:
 ## cv2.imshow('face', cropped_face)                      ##
 ## cv2.waitKey(0)                                        ##
 ##                                                       ##
-disparity  =  stereoPiD.dispair(left_file, right_file, min_disp=(16*5), num_disp=(128)) ##
+disparity  =  stereoPiD.dispair(left_file, right_file, min_disp=(16*4), num_disp=(128-16*4)) ##
 ##                                                       ##
 ##cv2.imshow('img disparity',disparity)                  ##
 ##cv2.waitKey(0)                                         ##
