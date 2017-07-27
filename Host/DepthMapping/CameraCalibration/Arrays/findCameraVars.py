@@ -16,7 +16,12 @@ yellowMAT, yellowImageD = stereoPiD.calibrateCamera(yellowDIR)
 stereoPiD.stereoDiffPop(yellowMAT, greenMAT, yellowImageD, greenImageD)
 
 
+# finds the Q variable for stereo Calibration
+Q = stereoPiD.calib3D(greenMAT, yellowMAT)
+
+
 OutFile = '/home/pinheadqt/Documents/StereoImages/CameraCalibration/Arrays/'
 
 pickle.dump(greenMAT, open('greenMat.p','wb'))
 pickle.dump(yellowMAT, open('yellowMat.p', 'wb'))
+pickle.dump(Q, open('Q.p','wb'))

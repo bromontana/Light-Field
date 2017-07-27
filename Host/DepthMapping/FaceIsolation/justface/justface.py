@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import pickle
 
-# CASCADE 
+# CASCADE
 
 face_cascade = cv2.CascadeClassifier('/home/pinheadqt/Tools/opencv/data/haarcascades/haarcascade_frontalface_default.xml')
 # eye_cascade = cv2.CascadeClassifier('/home/pinheadqt/Tools/opencv/data/haarcascades/haarcascade_eye.xml')
@@ -36,15 +36,31 @@ faces = face_cascade.detectMultiScale(grayL)
 for (x,y,w,h) in faces:
     cropped_faceL = imgL[y:y+h, x:x+w]
 
+plt.imshow(cropped_faceR)
+plt.show()
+plt.imshow(cropped_faceL)
+plt.show()
+# For the whole image
+disparity  =  stereoPiD.dispair(left_file, right_file, min_disp=(8), num_disp=(64)) ##
 
-disparity  =  stereoPiD.dispair(left_file, right_file, min_disp=(16*4), num_disp=(128-16*4)) ##
+print(cropped_faceR.shape)
+### TEST ###
+faces = face_cascade.detectMultiScale(grayR)
+for (x,y,w,h) in faces:
+    disparity_crop = disparity[y:y+h, x:x+w]
+
+
+disparity2 = stereoPiD.dispair(cropped_faceL, cropped_faceR, num_disp=32)
+plt.imshow(disparity_crop, 'gray')
+plt.show()
+
+plt.imshow(disparity2, 'gray')
+plt.show()
 
 # takes camera calibration values from CameraCalibration/Arrays/ which should only need to be found once per camera and stored
-greenMAT = pickle.load(open('/home/pinheadqt/Documents/RemoteStereoImaging/Host/DepthMapping/CameraCalibration/Arrays/greenMat.p','rb'))
-yellowMAT = pickle.load(open('/home/pinheadqt/Documents/RemoteStereoImaging/Host/DepthMapping/CameraCalibration/Arrays/yellowMat.p','rb'))
-
-Q = stereoPiD.calib3D(greenMAT, yellowMAT)
-
+# greenMAT = pickle.load(open('/home/pinheadqt/Documents/RemoteStereoImaging/Host/DepthMapping/CameraCalibration/Arrays/greenMat.p','rb'))
+# yellowMAT = pickle.load(open('/home/pinheadqt/Documents/RemoteStereoImaging/Host/DepthMapping/CameraCalibration/Arrays/yellowMat.p','rb'))
+Q = pickle.load(open('/home/pinheadqt/Documents/RemoteStereoImaging/Host/DepthMapping/CameraCalibration/Arrays/Q.p','rb'))
 
 _3Dobject= cv2.reprojectImageTo3D(disparity, Q, handleMissingValues=True)
 # _3Dobject = cv2.reprojectImageTo3D(face_disparity, Q, handleMissingValues=True)
