@@ -1,4 +1,6 @@
-    #!/usr/bin/env python
+#!/usr/bin/env python
+
+#Knightly!
 
 from __future__ import print_function
 import numpy as np
@@ -91,11 +93,33 @@ def calibrateCamera(DIR):
 
 
 def dispair(left, right, min_disp=16, num_disp=48):
-    #imgR = cv2.imread('friday_delet/Yellow/image25.jpg', 0)
-    imgL = cv2.imread(left,0)
-    #imgR = cv2.imread('friday_delet/Green/image25.jpg', 0)
-    imgR = cv2.imread(right,0)
+    # temp array for comparison
+    temp_arr = np.empty([0])
+    imgL, imgR = 0,0
+    #check to see if image was already loaded
+    if type(left) == type(temp_arr):
+        print ("it's a numpy array")
+        if left.shape[0] > right.shape[0]:
+            print ("left X is bigger")
+            imgL = left[0:right.shape[0],0:left.shape[1]]
+            imgR = right
+        else:
+            print("right X is bigger")
+            imgL = left
+            imgR = right[0:left.shape[0], 0:right.shape[1]]
+        if left.shape[1] > right.shape[1]:
+            print("left Y is bigger")
+            imgL = imgL[0:imgL.shape[0], 0:imgR.shape[1]]
+        else:
+            print("right Y is bigger")
+            imgR = imgR[0:imgR.shape[0], 0:imgL.shape[1]]
+    else:
+        print("it's not a numpy array")
+        imgL = cv2.imread(left,0)
+        imgR = cv2.imread(right,0)
 
+    print(imgL.shape)
+    print(imgR.shape)
     window_size=3
     # stereo = cv2.StereoBM_create(numDisparities=(16*3), blockSize=25)
     stereo = cv2.StereoSGBM_create(minDisparity = min_disp,
@@ -149,6 +173,8 @@ def stereoDiffPop(leftMat, rightMat, leftImageD, rightImageD):
                 del(rightMat[3][rightImageD.index(item)])
                 del(rightMat[4][rightImageD.index(item)])
                 rightImageD.remove(item)
+        print(len(rightImageD))
+        print(len(leftImageD))
 
 def cropDisparity(left, right, disp):
     # get matrix from left img
