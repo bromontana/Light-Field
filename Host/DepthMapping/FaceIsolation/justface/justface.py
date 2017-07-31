@@ -50,7 +50,7 @@ for (x,y,w,h) in faces:
     disparity_crop = disparity[y:y+h, x:x+w]
 
 
-disparity2 = stereoPiD.dispair(cropped_faceL, cropped_faceR, num_disp=32)
+disparity2 = stereoPiD.dispair(cropped_faceL, cropped_faceR, min_disp=4, num_disp=32)
 plt.imshow(disparity_crop, 'gray')
 plt.show()
 
