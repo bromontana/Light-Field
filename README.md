@@ -37,7 +37,7 @@ bandwidth requirements as video conferencing moves into the realm of VR
 and AR with the gigabyte bandwidth future coming soon (TM). 
 
 ## Contents 
-__**THIS MAY NOT BE ACCURATE TO DATE**__
+NOTE: Green is Right, Yellow is Left
 
  + Host
     + Depth Mapping

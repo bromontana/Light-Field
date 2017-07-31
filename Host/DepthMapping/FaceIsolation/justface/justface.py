@@ -3,8 +3,9 @@ import numpy as np
 import stereoPiD
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+import pickle
 
-# CASCADE 
+# CASCADE
 
 face_cascade = cv2.CascadeClassifier('/home/pinheadqt/Tools/opencv/data/haarcascades/haarcascade_frontalface_default.xml')
 # eye_cascade = cv2.CascadeClassifier('/home/pinheadqt/Tools/opencv/data/haarcascades/haarcascade_eye.xml')
@@ -35,24 +36,31 @@ faces = face_cascade.detectMultiScale(grayL)
 for (x,y,w,h) in faces:
     cropped_faceL = imgL[y:y+h, x:x+w]
 
+plt.imshow(cropped_faceR)
+plt.show()
+plt.imshow(cropped_faceL)
+plt.show()
+# For the whole image
+disparity  =  stereoPiD.dispair(left_file, right_file, min_disp=(8), num_disp=(64)) ##
 
-disparity  =  stereoPiD.dispair(left_file, right_file, min_disp=(16*4), num_disp=(128-16*4)) 
-
-# right and left directories 
-greenDIR = '/home/pinheadqt/Documents/StereoImages/CameraCalibration/Green30Calib/'
-yellowDIR = '/home/pinheadqt/Documents/StereoImages/CameraCalibration/Yellow30Calib/'
-
-greenMAT, greenImageD = stereoPiD.calibrateCamera(greenDIR)
-yellowMAT, yellowImageD =  stereoPiD.calibrateCamera(yellowDIR)
-
-# this one will get rid of all the data points associated with images that 
-# dont have the correct conditions
-stereoPiD.stereoDiffPop(yellowMAT, greenMAT, yellowImageD, greenImageD)
+print(cropped_faceR.shape)
+### TEST ###
+faces = face_cascade.detectMultiScale(grayR)
+for (x,y,w,h) in faces:
+    disparity_crop = disparity[y:y+h, x:x+w]
 
 
-# Q is the 3D calibration array
-Q = stereoPiD.calib3D(greenMAT, yellowMAT)
+disparity2 = stereoPiD.dispair(cropped_faceL, cropped_faceR, min_disp=4, num_disp=32)
+plt.imshow(disparity_crop, 'gray')
+plt.show()
 
+plt.imshow(disparity2, 'gray')
+plt.show()
+
+# takes camera calibration values from CameraCalibration/Arrays/ which should only need to be found once per camera and stored
+# greenMAT = pickle.load(open('/home/pinheadqt/Documents/RemoteStereoImaging/Host/DepthMapping/CameraCalibration/Arrays/greenMat.p','rb'))
+# yellowMAT = pickle.load(open('/home/pinheadqt/Documents/RemoteStereoImaging/Host/DepthMapping/CameraCalibration/Arrays/yellowMat.p','rb'))
+Q = pickle.load(open('/home/pinheadqt/Documents/RemoteStereoImaging/Host/DepthMapping/CameraCalibration/Arrays/Q.p','rb'))
 
 _3Dobject= cv2.reprojectImageTo3D(disparity, Q, handleMissingValues=True)
 # _3Dobject = cv2.reprojectImageTo3D(face_disparity, Q, handleMissingValues=True)
@@ -66,13 +74,13 @@ temp = 0
 for vert in _3Dobject:
   for horiz in vert[::15]:
     temp += 1
-#   For not filtering out max points
+#    for not filtering out max points
 #
 #    x.append(horiz[1])
 #    y.append(horiz[0])
 #    z.append(horiz[2])
 
-#   For cutting out points that are far away
+    # For cutting out points that are far away
     if horiz[2] < 6000:
       x.append(horiz[1])
       y.append(horiz[0])
@@ -84,9 +92,8 @@ for vert in _3Dobject:
 for item in range(len(_3Dobject[0])):
   print _3Dobject[0][item]
 
-
-# Build the plot and then show it
 ax = fig.add_subplot(111, projection='3d')
+
 ax.scatter(x,y,z, c='r', marker='o')
 ax.set_xlabel('X Label')
 ax.set_ylabel('Y Label')
