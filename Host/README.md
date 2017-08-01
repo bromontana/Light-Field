@@ -12,3 +12,7 @@ spy camera module.
  + Example
    + This one has some full examples of the code usage with 
 annotations, including some dated code. 
+
+## scripts
+
+This  
