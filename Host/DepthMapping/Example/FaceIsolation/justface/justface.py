@@ -12,8 +12,8 @@ face_cascade = cv2.CascadeClassifier('/home/pinheadqt/Tools/opencv/data/haarcasc
 
 
 # IMAGE INIT
-right_file = '../../../../../../Pictures/GreenImgs/image17.jpg'
-left_file = '../../../../../../Pictures/YellowImgs/image17.jpg'
+right_file = '/home/pinheadqt/Pictures/GreenImgs/image17.jpg'
+left_file = '/home/pinheadqt/Pictures/YellowImgs/image17.jpg'
 
 imgL = cv2.imread(left_file)
 imgR = cv2.imread(right_file)
