@@ -26,19 +26,25 @@ def server_connection(host):
 # this will make the server recieve commands from the client
 # socket, and have it capture n number of images.
 
-def waitForCommand(ConnectionObj):
+def waitForCommand(ConnectionObj, debugging=False):
     while True:
         evocation = ConnectionObj.recv(15)
+        if debugging == True:
+            print evocation
         if evocation[:4] == 'take': 
-            
+            if debugging == True: 
+                print ('about to take '+evocation[4:]+' pictures')
             # This initializes the camera and gives it time to get going
             with picamera.PiCamera() as camera:
                 sleep(2)
                 # captures all the images in the ./temp/ directory
                 for i in range(0,int(evocation[4:])):
                     camera.capture('temp/image'+str(i)+'.jpg')
-                
+                if debugging == True: 
+                    print('Images took')
             ConnectionObj.send('done')
+            if debugging == True:
+                print("sending back 'done'\n\n------------------------------")
             break
         else: 
             ConnectionObj.send('failed')
