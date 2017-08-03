@@ -39,7 +39,7 @@ def waitForCommand(ConnectionObj, debugging=False):
                 sleep(2)
                 # captures all the images in the ./temp/ directory
                 for i in range(0,int(evocation[4:])):
-                    camera.capture('/home/pi/img/'+str(i)+'.jpg')
+                    camera.capture('/home/pi/imgs/image'+str(i)+'.jpg')
                     if debugging == True: 
                         print("Captured image "+str(i))
                 if debugging == True: 
