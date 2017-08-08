@@ -6,7 +6,7 @@ import subprocess
 
 
 green_dir = '/home/pinheadqt/Pictures/PiImages/Green/'
-yellow_dir = '/home/pinheadqt/Pictures/PiImages/Yellow'
+yellow_dir = '/home/pinheadqt/Pictures/PiImages/Yellow/'
 plt.axis([0,1920,1080,0])
 plt.ion()
 plt.show()

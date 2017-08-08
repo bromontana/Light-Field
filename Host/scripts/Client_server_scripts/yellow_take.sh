@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sshpass -p 'raspberry' scp pi@$1:~/socket_testing/temp/image0.jpg ./$2
+sshpass -p 'raspberry' scp pi@$1:~/home/pi/imgs/image0.jpg ./$2
